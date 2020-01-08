@@ -9,15 +9,19 @@ LDLIBS = -lrt -lzookeeper_mt
 
 vpath %.c ${SRC_PATH}
 
-ALL = main watch_tst
+ALL = main watch_tst trace_filter calib_tsc
 
 .PHONY: all clean
 
 all: ${ALL}
+	cscope -Rb
+
+EXP_CAL:
+	cp calib_tsc trace_filter /home/NFS_Share/ZkCtrlCli/Exp_Cal/
+
 
 clean:
 	rm -rf ${ALL} *.o *.csv
-	cscope -Rb
 	clear
 
 %.o: %.c
@@ -28,3 +32,9 @@ main: main.o
 
 watch_tst: watch_tst.o
 	${CC} ${CFLAG} $^ ${LDLIBS} -o $@
+
+calib_tsc: calib_tsc.o tracing.o
+	${CC} ${CFLAG} $^ ${LDLIBS} -o $@
+
+trace_filter: trace_filter.o tracing.o
+	${CC} ${CFLAG} $^           -o $@
