@@ -2,8 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <errno.h>
+#include <assert.h>
 #include <zookeeper/zookeeper.h>
+#include "tracing.h"
 
 static zhandle_t *zh;
 
@@ -12,7 +15,6 @@ static zhandle_t *zh;
 void global_watcher(zhandle_t *zzh, int type, int state, const char *path,
              void *watcherCtx)
 {
-	//printf("The Global Watch Has Been Called.\n");
 	return;
 }
 
@@ -20,10 +22,10 @@ void global_watcher(zhandle_t *zzh, int type, int state, const char *path,
 void my_watcher2(zhandle_t *zzh, int type, int state, const char *path,
              void *watcherCtx)
 {
-	if(ZOO_DELETED_EVENT == type)
-	{
-		printf("[Watch2] Node Has Been Deleted.\n");
-	}
+	add_record_evt(CAL_EVENT, CAL_EVT_WAT_TRI, 0);
+	zookeeper_close(zh);
+	dump_tracing_to_file("end.tracing");
+	exit(0);	
 	return;
 }
 
@@ -36,6 +38,7 @@ int main(int argc, char* argv[])
 	strcpy(appId, "example.foo_test");
 
 	//zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG);
+	init_tracing();
 
 	zh = zookeeper_init("192.168.0.11:2181", global_watcher, 10001, 0, 0, 0);
 	if (!zh)
@@ -44,17 +47,11 @@ int main(int argc, char* argv[])
 	}
 	
 	rc = zoo_wexists(zh, "/xyz", my_watcher2, 0, &stat);
-	if (ZOK == rc)
-	{
-		printf("Node Exists.\n");
-	}
-	else if(ZNONODE == rc)
-	{
-		printf("No Node.\n");
-	}
+	assert(ZOK == rc);
 	
-	getchar();
+	pause();
 
 	zookeeper_close(zh);
+
 	return 0;
 }

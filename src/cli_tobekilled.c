@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <errno.h>
 #include <zookeeper/zookeeper.h>
 
@@ -28,7 +29,7 @@ int main(int argc, char* argv[])
 
 	//zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG);
 
-	zh = zookeeper_init("192.168.0.11:2181", watcher, 10000, 0, 0, 0);
+	zh = zookeeper_init("192.168.0.11:2181", watcher, 1000, 0, 0, 0);
 	if (!zh)
 	{
 		return errno;
@@ -58,7 +59,7 @@ int main(int argc, char* argv[])
 	printf("Res = %s\n", buffer);
 	*/
 	
-	getchar();
+	pause();
 
 	zookeeper_close(zh);
 	return 0;

@@ -25,6 +25,8 @@ static event_identify gstrEventList[] =
 	{"ACU_EVT_SND_CTLCMD"   , ACU_EVT_SND_CTLCMD },
 
 	{"CAL_EVT_RLS_JOB"      , CAL_EVT_RLS_JOB    },
+	{"CAL_EVT_KIL_CLI"      , CAL_EVT_KIL_CLI    },
+	{"CAL_EVT_WAT_TRI"      , CAL_EVT_WAT_TRI    },
 };
 
 static int32_t getDefEventNum(void)

@@ -34,6 +34,8 @@
 
 /* ========== CALIBTATION EVENT ============= */
 #define CAL_EVT_RLS_JOB        (901)
+#define CAL_EVT_KIL_CLI        (902)
+#define CAL_EVT_WAT_TRI        (903)
 
 #define HZ                 (2099963427)
 #define KHZ                (2099963)
