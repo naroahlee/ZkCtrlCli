@@ -12,7 +12,7 @@ void rand_sleep(void)
 	int usec;
 	time_t t;
 	srand((unsigned) time(&t));
-	usec = (int)(((double)rand() / RAND_MAX) * 1000000);
+	usec = (int)(((double)rand() / RAND_MAX) * 4000000);
 	usleep(usec);
 	return;
 }

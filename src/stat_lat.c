@@ -9,6 +9,7 @@ int main(int argc, char* argv[])
 	size_t s32fsize;
 	int s32reccnt;
 	int s32i;
+	int s32ret;
 	double d64lat;
 
 	event_record* pstrevt;
@@ -23,7 +24,8 @@ int main(int argc, char* argv[])
 
 	/* Read Record */
 	pstrevt = (event_record*)malloc(s32reccnt * sizeof(event_record));
-	(void)fread(pstrevt, sizeof(event_record), s32reccnt, fpin);
+	s32ret = fread(pstrevt, sizeof(event_record), s32reccnt, fpin);
+	s32ret = s32ret;
 	fclose(fpin);
 
 	fpout = fopen("res.csv", "w");
@@ -34,8 +36,6 @@ int main(int argc, char* argv[])
 		
 	}
 	fclose(fpout);
-	
-	
 	free(pstrevt);
 	return 0;
 
