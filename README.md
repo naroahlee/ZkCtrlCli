@@ -1,6 +1,7 @@
 # My Zookeeper Client in C
 Development Note:
-	I need to design an Experiment for testing the watch latency.
+	I Updated the program interface to support zookeeper cluster test 
+	
 
 ===========================Manual==============================
 Install Zookeeper Library

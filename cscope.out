@@ -1,4 +1,4 @@
-cscope 15 $HOME/Program/ZkCtrlCli               0000400572
+cscope 15 $HOME/Program/ZkCtrlCli               0000400944
 	@inc/trace_filter.h
 
 3 #i‚de‡
@@ -1045,39 +1045,43 @@ EXIT_SUCCESS
 	}
 }
 
-	@src/cli_tobekilled.c
+	@src/cli_create_ep.c
 
-2 
+11 
 	~<°dio.h
 >
 
-3 
+12 
 	~<°dlib.h
 >
 
-4 
+13 
 	~<°rög.h
 >
 
-5 
+14 
 	~<uni°d.h
 >
 
-6 
+15 
 	~<î∫o.h
 >
 
-7 
+16 
 	~<zookì≥r/zookì≥r.h
 >
 
-10 
+19 
 zh™dÀ_t
  *
 	gzh
 ;
 
-14 
+21 c⁄° 
+	gs32ex≥˘_timeout
+ = 1000;
+
+25 
 	$w©chî
 (
 zh™dÀ_t
@@ -1091,15 +1095,15 @@ ty≥
 ∑th
 ,
 
-15 *
+26 *
 w©chîCtx
 )
 
-18 
+29 
 	}
 }
 
-20 
+31 
 	$maö
 (
 ¨gc
@@ -1107,41 +1111,65 @@ w©chîCtx
 ¨gv
 [])
 
-22 
+33 
 buf„r
 [512];
 
-23 
-≠pId
-[64];
+34 
+acSrvs
+[256];
 
-24 
+35 
 rc
 ;
 
-28 
+38 if(1 =
+¨gc
+)
+
+40 
 	`°r˝y
 (
-≠pId
-, "example.foo_test");
+acSrvs
+, "localhost:2181");
 
-32 
+42 i‡(2 =
+¨gc
+)
+
+44 
+	`°r˝y
+(
+acSrvs
+, 
+¨gv
+[1]);
+
+48 
+	`exô
+(-1);
+
+53 
 zh
  = 
 	`zookì≥r_öô
-("192.168.0.11:2181", 
+(
+acSrvs
+, 
 w©chî
-, 1000, 0, 0, 0);
+, 
+s32ex≥˘_timeout
+, 0, 0, 0);
 
-33 i‡(!
+54 i‡(!
 zh
 )
 
-35  
+56  
 î∫o
 ;
 
-39 
+60 
 rc
  = 
 	`zoo_¸óã
@@ -1149,27 +1177,27 @@ rc
 zh
 ,
 
-44 &
+65 &
 ZOO_OPEN_ACL_UNSAFE
 ,
 
-45 
+66 
 ZOO_EPHEMERAL
 ,
 
-46 
+67 
 buf„r
 ,
 
-47 (
+68 (
 buf„r
 )-1);
 
-48 i‡(
+69 i‡(
 rc
 )
 
-50 
+71 
 	`Ârötf
 (
 °dîr
@@ -1179,91 +1207,131 @@ rc
 __LINE__
 );
 
-62 
+74 
 	`∑u£
 ();
 
-64 
+76 
 	`zookì≥r_˛o£
 (
 zh
 );
 
-66 
+78 
 	}
 }
 
-	@src/clikill.c
+	@src/cli_watch_ep.c
 
-1 
+11 
 	~<°dio.h
 >
 
-2 
+12 
 	~<°dlib.h
 >
 
-3 
+13 
+	~<°rög.h
+>
+
+14 
 	~<uni°d.h
 >
 
-4 
-	~<sig«l.h
+15 
+	~<î∫o.h
 >
 
-5 
-	~<time.h
+16 
+	~<as£π.h
 >
 
-6 
-	~<sys/ty≥s.h
+17 
+	~<zookì≥r/zookì≥r.h
 >
 
-8 
+18 
 	~"åacög.h
 "
 
-10 
-	$ønd_¶ìp
-()
-
-12 
-u£c
+20 
+zh™dÀ_t
+ *
+	gzh
 ;
 
-13 
-time_t
- 
-t
-;
+21 c⁄° 
+	gs32ex≥˘_timeout
+ = 1000;
 
-14 
-	`§™d
-((Ë
-	`time
-(&
-t
-));
-
-15 
-u£c
- = ()((()
-	`ønd
-(Ë/ 
-RAND_MAX
-) * 4000000);
-
-16 
-	`u¶ìp
+25 
+	$globÆ_w©chî
 (
-u£c
-);
+zh™dÀ_t
+ *
+zzh
+, 
+ty≥
+, 
+°©e
+, c⁄° *
+∑th
+,
 
-18 
+26 *
+w©chîCtx
+)
+
+29 
 	}
 }
 
-20 
+32 
+	$my_w©chî2
+(
+zh™dÀ_t
+ *
+zzh
+, 
+ty≥
+, 
+°©e
+, c⁄° *
+∑th
+,
+
+33 *
+w©chîCtx
+)
+
+35 
+	`add_ªc‹d_evt
+(
+CAL_EVENT
+, 
+CAL_EVT_WAT_TRI
+, 0);
+
+36 
+	`zookì≥r_˛o£
+(
+zh
+);
+
+37 
+	`dump_åacög_to_fûe
+("end.tracing");
+
+38 
+	`exô
+(0);
+
+40 
+	}
+}
+
+42 
 	$maö
 (
 ¨gc
@@ -1271,41 +1339,235 @@ u£c
 ¨gv
 [])
 
-22 
-s32pid
- = 0;
+44 
+rc
+;
 
-23 if(2 !
+45 
+Sèt
+ 
+°©
+;
+
+46 
+acSrvs
+[256];
+
+49 if(1 =
 ¨gc
 )
 
-25 
+51 
+	`°r˝y
+(
+acSrvs
+, "localhost:2181");
+
+53 i‡(2 =
+¨gc
+)
+
+55 
+	`°r˝y
+(
+acSrvs
+, 
+¨gv
+[1]);
+
+59 
+	`exô
+(-1);
+
+63 
+	`öô_åacög
+();
+
+65 
+zh
+ = 
+	`zookì≥r_öô
+(
+acSrvs
+, 
+globÆ_w©chî
+, 
+s32ex≥˘_timeout
+, 0, 0, 0);
+
+66 i‡(!
+zh
+)
+
+68  
+î∫o
+;
+
+71 
+rc
+ = 
+	`zoo_wexi°s
+(
+zh
+, "/myï", 
+my_w©chî2
+, 0, &
+°©
+);
+
+72 
+	`as£π
+(
+ZOK
+ =
+rc
+);
+
+74 
+	`∑u£
+();
+
+76 
+	`zookì≥r_˛o£
+(
+zh
+);
+
+79 
+	}
+}
+
+	@src/delayms_killpid.c
+
+7 
+	~<°dio.h
+>
+
+8 
+	~<°dlib.h
+>
+
+9 
+	~<uni°d.h
+>
+
+10 
+	~<sig«l.h
+>
+
+11 
+	~<time.h
+>
+
+12 
+	~<sys/ty≥s.h
+>
+
+14 
+	~"åacög.h
+"
+
+16 
+	$ønd_¶ìp
+(
+s32m£c
+)
+
+18 
+s32u£c
+;
+
+19 
+time_t
+ 
+t
+;
+
+20 
+	`§™d
+((Ë
+	`time
+(&
+t
+));
+
+21 
+s32u£c
+ = ()((()
+	`ønd
+(Ë/ 
+RAND_MAX
+Ë* 
+s32m£c
+ * 1000);
+
+22 
+	`u¶ìp
+(
+s32u£c
+);
+
+24 
+	}
+}
+
+26 
+	$maö
+(
+¨gc
+, * 
+¨gv
+[])
+
+28 
+s32pid
+ = 0;
+
+29 
+s32m£c
+ = 0;
+
+30 if(3 !
+¨gc
+)
+
+32 
 	`Ârötf
 (
 °dîr
 , "Argument Error!\n");
 
-26 
+33 
 	`exô
 (-1);
 
-28 
-s32pid
+35 
+s32m£c
  = 
 	`©oi
 (
 ¨gv
 [1]);
 
-30 
+36 
+s32pid
+ = 
+	`©oi
+(
+¨gv
+[2]);
+
+38 
 	`öô_åacög
 ();
 
-32 
+40 
 	`ønd_¶ìp
-();
+(
+s32m£c
+);
 
-33 
+41 
 	`kûl
 (
 s32pid
@@ -1313,7 +1575,7 @@ s32pid
 SIGKILL
 );
 
-34 
+42 
 	`add_ªc‹d_evt
 (
 CAL_EVENT
@@ -1321,11 +1583,11 @@ CAL_EVENT
 CAL_EVT_KIL_CLI
 , 0);
 
-36 
+44 
 	`dump_åacög_to_fûe
 ("start.tracing");
 
-38 
+46 
 	}
 }
 
@@ -3030,194 +3292,6 @@ KHZ
 ("TYPE ERROR!\n");
 
 150 
-	}
-}
-
-	@src/watch_tst.c
-
-2 
-	~<°dio.h
->
-
-3 
-	~<°dlib.h
->
-
-4 
-	~<°rög.h
->
-
-5 
-	~<uni°d.h
->
-
-6 
-	~<î∫o.h
->
-
-7 
-	~<as£π.h
->
-
-8 
-	~<zookì≥r/zookì≥r.h
->
-
-9 
-	~"åacög.h
-"
-
-11 
-zh™dÀ_t
- *
-	gzh
-;
-
-15 
-	$globÆ_w©chî
-(
-zh™dÀ_t
- *
-zzh
-, 
-ty≥
-, 
-°©e
-, c⁄° *
-∑th
-,
-
-16 *
-w©chîCtx
-)
-
-19 
-	}
-}
-
-22 
-	$my_w©chî2
-(
-zh™dÀ_t
- *
-zzh
-, 
-ty≥
-, 
-°©e
-, c⁄° *
-∑th
-,
-
-23 *
-w©chîCtx
-)
-
-25 
-	`add_ªc‹d_evt
-(
-CAL_EVENT
-, 
-CAL_EVT_WAT_TRI
-, 0);
-
-26 
-	`zookì≥r_˛o£
-(
-zh
-);
-
-27 
-	`dump_åacög_to_fûe
-("end.tracing");
-
-28 
-	`exô
-(0);
-
-30 
-	}
-}
-
-32 
-	$maö
-(
-¨gc
-, * 
-¨gv
-[])
-
-34 
-≠pId
-[64];
-
-35 
-rc
-;
-
-36 
-Sèt
- 
-°©
-;
-
-38 
-	`°r˝y
-(
-≠pId
-, "example.foo_test");
-
-41 
-	`öô_åacög
-();
-
-43 
-zh
- = 
-	`zookì≥r_öô
-("192.168.0.11:2181", 
-globÆ_w©chî
-, 10001, 0, 0, 0);
-
-44 i‡(!
-zh
-)
-
-46  
-î∫o
-;
-
-49 
-rc
- = 
-	`zoo_wexi°s
-(
-zh
-, "/xyz", 
-my_w©chî2
-, 0, &
-°©
-);
-
-50 
-	`as£π
-(
-ZOK
- =
-rc
-);
-
-52 
-	`∑u£
-();
-
-54 
-	`zookì≥r_˛o£
-(
-zh
-);
-
-57 
 	}
 }
 
@@ -68739,16 +68813,16 @@ _ASM_GENERIC_ERRNO_BASE_H
 1
 /usr/include
 135
-3975
+3985
 inc/trace_filter.h
 inc/tracing.h
 src/calib_tsc.c
-src/cli_tobekilled.c
-src/clikill.c
+src/cli_create_ep.c
+src/cli_watch_ep.c
+src/delayms_killpid.c
 src/stat_lat.c
 src/trace_filter.c
 src/tracing.c
-src/watch_tst.c
 /usr/include/assert.h
 /usr/include/ctype.h
 /usr/include/errno.h

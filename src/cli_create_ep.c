@@ -1,4 +1,13 @@
-/* Main.c */
+/* cli_create_ep.c */
+/* A Zookeeper Client which creates an ephemeral node */
+/* @ Znode /myep                                      */
+/* After creating the node, main went into pause()    */
+/* However, the background thread of zookeeper_mt lib */
+/* will continue working.                             */
+
+/* Usage: */
+/* ./cli_create_ep [ZkSrv1:Port,ZkSrv2:Port]          */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +17,8 @@
 
 
 static zhandle_t *zh;
+
+const int s32expect_timeout = 1000;
 
 /* Watcher function -- 
  * empty for this example, not something you should do in real code */
@@ -20,16 +31,26 @@ void watcher(zhandle_t *zzh, int type, int state, const char *path,
 int main(int argc, char* argv[])
 {
 	char   buffer[512];
-	char   appId[64];
+	char   acSrvs[256];
 	int    rc;
-	//int    buflen= sizeof(buffer);
-	//struct Stat stat;
 
-	strcpy(appId, "example.foo_test");
+	/* Parameter Check */
+	if(1 == argc)
+	{
+		strcpy(acSrvs, "localhost:2181");
+	}
+	else if (2 == argc)
+	{
+		strcpy(acSrvs, argv[1]);
+	}
+	else
+	{
+		exit(-1);
+	}
 
-	//zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG);
+	/* zoo_set_debug_level(ZOO_LOG_LEVEL_DEBUG); */
 
-	zh = zookeeper_init("192.168.0.11:2181", watcher, 1000, 0, 0, 0);
+	zh = zookeeper_init(acSrvs, watcher, s32expect_timeout, 0, 0, 0);
 	if (!zh)
 	{
 		return errno;
@@ -37,7 +58,7 @@ int main(int argc, char* argv[])
 	
 	/* Create an ephemeral node */
 	rc = zoo_create(zh,
-					"/xyz",
+					"/myep",
 					"value",
 					5,
 					//&ALLOW_ALL,
@@ -49,15 +70,6 @@ int main(int argc, char* argv[])
 	{
 		fprintf(stderr, "Error %d for %d\n", rc, __LINE__);
 	}
-
-	/*
-	rc = zoo_get(zh, "/xyz", 0, buffer, &buflen, &stat);
-	if (rc)
-	{
-		fprintf(stderr, "Error %d for %d\n", rc, __LINE__);
-	}
-	printf("Res = %s\n", buffer);
-	*/
 	
 	pause();
 
