@@ -1,6 +1,7 @@
 # My Zookeeper Client in C
 Development Note:
 	I Updated the program interface to support zookeeper cluster test 
+	I changed the cli_watch_ep's timeout
 	
 
 ===========================Manual==============================
