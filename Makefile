@@ -17,7 +17,7 @@ all: ${ALL}
 	cscope -Rb
 
 clean:
-	rm -rf ${ALL} *.o *.csv
+	rm -rf ${ALL} *.o *.csv cscope.out
 	clear
 
 %.o: %.c
