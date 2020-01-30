@@ -9,7 +9,7 @@ LDLIBS = -lrt -lzookeeper_mt
 
 vpath %.c ${SRC_PATH}
 
-ALL = cli_create_ep cli_watch_ep trace_filter calib_tsc delayms_killpid stat_lat
+ALL = cli_create_ep cli_watch_ep trace_filter calib_tsc delayms_killpid stat_lat show_const_table
 
 .PHONY: all clean
 
@@ -40,6 +40,9 @@ calib_tsc: calib_tsc.o tracing.o
 
 trace_filter: trace_filter.o tracing.o
 	${CC} ${CFLAG} $^           -o $@
+
+show_const_table: show_const_table.o
+	${CC} ${CFLAG} $^ ${LDLIBS} -o $@
 
 EXP_CAL: calib_tsc trace_filter
 	cp $^ /home/NFS_Share/ZkCtrlCli/Exp_Cal/

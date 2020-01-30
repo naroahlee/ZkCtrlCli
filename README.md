@@ -2,6 +2,7 @@
 Development Note:
 	I Updated the program interface to support zookeeper cluster test 
 	I changed the cli_watch_ep's timeout
+	I created another test program to output the CONST variables in ZOOAPI
 	
 
 ===========================Manual==============================
